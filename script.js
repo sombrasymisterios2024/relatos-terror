@@ -27,7 +27,7 @@ function abrirLector(url) {
     // Bloqueamos el scroll de la página principal
     document.body.style.overflow = 'hidden';
     
-    // Reiniciamos al modo claro por defecto al abrir
+    // Al abrir, forzamos el modo claro para resetear la interfaz
     cambiarModoLector('claro');
 }
 
@@ -47,12 +47,31 @@ function cerrarLector() {
 
 /**
  * Cambia entre modo claro y oscuro aplicando filtros al iframe
+ * y actualizando el estado visual de los botones.
  */
 function cambiarModoLector(modo) {
     const iframe = document.getElementById('frame-pdf');
+    const botones = document.querySelectorAll('.btn-modo');
+    
+    // 1. Aplicar o quitar el filtro de inversión al iframe
     if (modo === 'oscuro') {
         iframe.classList.add('pdf-oscuro');
     } else {
         iframe.classList.remove('pdf-oscuro');
     }
+
+    // 2. Gestionar el marcador visual (.active) en los botones
+    botones.forEach(btn => {
+        // Quitamos la clase 'active' de todos los botones primero
+        btn.classList.remove('active');
+        
+        // Verificamos cuál botón activar basándonos en el texto que contiene
+        const textoBoton = btn.innerText.toUpperCase();
+        
+        if (modo === 'oscuro' && textoBoton.includes('OSCURO')) {
+            btn.classList.add('active');
+        } else if (modo === 'claro' && textoBoton.includes('CLARO')) {
+            btn.classList.add('active');
+        }
+    });
 }
