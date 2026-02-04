@@ -249,3 +249,32 @@ footer {
     font-size: 0.9rem;
     color: #555;
 }
+
+/* --- AJUSTES PARA MÓVILES --- */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8rem; /* Título más pequeño para que no se corte */
+    }
+
+    .modal-contenido {
+        width: 95%; /* Aprovechamos más el ancho en celular */
+        margin: 80px auto 10px auto; /* Más espacio arriba para los botones */
+        height: 80vh;
+    }
+
+    .controles-lectura {
+        flex-direction: row;
+        gap: 5px;
+        top: -65px; /* Subimos los botones para que no choquen */
+    }
+
+    .btn-modo {
+        padding: 6px 8px;
+        font-size: 10px; /* Botones más pequeños para que quepan */
+    }
+
+    .cerrar-lector {
+        top: -35px;
+        font-size: 12px;
+    }
+}
