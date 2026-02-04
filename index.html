@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatos de Ultratumba | Lectura Exclusiva</title>
     
-    <link rel="stylesheet" href="style.css?v=1.2">
+    <link rel="stylesheet" href="style.css?v=7.0">
     
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700&family=Nosifer&display=swap" rel="stylesheet">
     
@@ -28,20 +28,43 @@
     
             <div class="card-content">
                 <h2>Sombras en el Umbral</h2>
-                <p>"Alex creía que las leyendas eran solo cuentos. Ahora, una marca oscura avanza por su piel y las sombras de los muertos le susurran al oído: él es la llave para que algo mucho peor cruce a nuestro mundo."</p>
+                <p>"Alex creía que las leyendas eran solo cuentos. Ahora, una marca oscura avanza por su piel y las sombras de los muertos le susurran al oído."</p>
             </div>
     
-            <a href="https://drive.google.com/file/d/1uhHtR-2jUZ_pOMthA3DH9EBHtoRHvvLw/preview" target="_blank" class="btn-read">Leer Relato</a>
+            <a href="javascript:void(0)" onclick="abrirLector('https://drive.google.com/file/d/1uhHtR-2jUZ_pOMthA3DH9EBHtoRHvvLw/preview')" class="btn-read">Leer Relato</a>
         </article>
 
         <article class="story-card">
+            <img src="img/voces-estatica.jpg" alt="Portada Voces en la Estática" class="story-image">
+
             <div class="card-content">
                 <h2>Voces en la Estática</h2>
-                <p>"La radio nunca estuvo encendida, pero los susurros eran demasiado claros."</p>
+                <p>"La radio nunca estuvo encendida, pero los susurros eran demasiado claros. Marcos escucha a los muertos... y ahora dicen su nombre."</p>
             </div>
-            <a href="https://drive.google.com/file/d/TU_ID_AQUI/preview" target="_blank" class="btn-read">Leer Relato</a>
+            
+            <a href="javascript:void(0)" onclick="abrirLector('https://drive.google.com/file/d/TU_ID_AQUI/preview')" class="btn-read">Leer Relato</a>
         </article>
     </main>
+
+    <div id="lector-pdf" class="modal-lector">
+        <div class="modal-contenido">
+            
+            <div class="controles-lectura">
+                <button onclick="cambiarModoLector('claro')" class="btn-modo">
+                    <i class="fas fa-sun"></i> MODO CLARO
+                </button>
+                <button onclick="cambiarModoLector('oscuro')" class="btn-modo">
+                    <i class="fas fa-moon"></i> MODO OSCURO
+                </button>
+            </div>
+
+            <span class="cerrar-lector" onclick="cerrarLector()">
+                <i class="fas fa-times"></i> CERRAR BIBLIOTECA
+            </span>
+            
+            <iframe id="frame-pdf" src="" frameborder="0"></iframe>
+        </div>
+    </div>
 
     <footer>
         <p>&copy; 2026 Misterios de Aiden | Contenido Original Protegido</p>
