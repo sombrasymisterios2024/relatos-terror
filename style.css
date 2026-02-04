@@ -23,6 +23,31 @@ body {
     min-height: 100vh;
 }
 
+/* Estilo para la palabra YouTube dentro del botón */
+.yt-text {
+    background-color: #ff0000; /* Fondo rojo para la palabra */
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Arial Black', sans-serif;
+    margin-left: 5px;
+    font-size: 0.85rem;
+    display: inline-block;
+    line-height: 1;
+}
+
+/* Ajuste para que el icono de play siga siendo rojo neón */
+.btn-youtube i {
+    font-size: 1.8rem;
+    color: #ff0000; 
+    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8));
+}
+
+/* Al pasar el mouse, invertimos para que se vea profesional */
+.btn-youtube:hover .yt-text {
+    background-color: white;
+    color: #ff0000;
+}
 header {
     text-align: center;
     padding: 60px 20px;
