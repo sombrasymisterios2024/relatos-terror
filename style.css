@@ -66,20 +66,22 @@ h1 {
 }
 
 /* Estilo para el cuadro rojo que dice YouTube */
-.yt-text {
+/* Selector de máxima prioridad para forzar el diseño */
+a.btn-youtube span.yt-text {
     background: #FF0000 !important;
     color: #FFFFFF !important;
-    padding: 6px 15px !important; /* Cuadro grande */
+    padding: 6px 15px !important;
     border-radius: 6px !important;
     font-family: 'Arial Black', sans-serif !important;
     font-weight: 900 !important;
-    margin-left: 10px;
-    font-size: 1.4rem !important; /* Mucho más grande que el texto base */
-    display: inline-block;
-    vertical-align: middle;
-    text-transform: none !important; /* Permite minúsculas (YouTube) */
-    letter-spacing: -1px;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    margin-left: 10px !important;
+    font-size: 1.4rem !important; 
+    display: inline-block !important;
+    vertical-align: middle !important;
+    /* ESTA ES LA LÍNEA QUE MATA LAS MAYÚSCULAS */
+    text-transform: none !important; 
+    letter-spacing: -1px !important;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;
 }
 
 .btn-youtube:hover {
