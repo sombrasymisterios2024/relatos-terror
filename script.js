@@ -9,32 +9,21 @@ document.onkeydown = function(e) {
 
 // --- FUNCIONES DEL LECTOR PDF ---
 
-function abrirLector(url) {
+function abrirLector(nombreArchivo) {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
-    // Extraemos el ID para usar una URL limpia que Google Docs Viewer acepte mejor
-    const fileId = url.match(/\/d\/(.+?)\//) ? url.match(/\/d\/(.+?)\//)[1] : null;
+    // Usamos el visor oficial de PDF.js alojado, apuntando a TU archivo en GitHub
+    // Reemplaza 'TU_USUARIO' y 'TU_REPOSITORIO' por tus datos reales
+    const urlArchivo = `https://raw.githubusercontent.com/TU_USUARIO/TU_REPOSITORIO/main/pdfs/${nombreArchivo}`;
     
-    if (fileId) {
-        // Usamos una URL de origen 'gview' que es más amigable con el zoom de móviles
-        const urlFinal = `https://docs.google.com/gview?embedded=true&url=https://drive.google.com/uc?id=${fileId}`;
-        iframe.src = urlFinal;
-    } else {
-        iframe.src = url;
-    }
-
+    // El visor de PDF.js permite zoom, búsqueda y es perfecto para móviles
+    const visorPDF = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(urlArchivo)}`;
+    
+    iframe.src = visorPDF;
     lector.style.display = 'block';
     document.body.style.overflow = 'hidden';
     cambiarModoLector('claro');
-
-    // SOLUCIÓN AL CUADRO EN BLANCO: 
-    // Si en 3 segundos no carga, refrescamos el src una vez (truco clásico de Google Viewer)
-    setTimeout(() => {
-        if (iframe.src.includes('gview') && !iframe.contentWindow.length) {
-            iframe.src = iframe.src; 
-        }
-    }, 3000);
 }
 
 function cerrarLector() {
@@ -55,8 +44,12 @@ function cambiarModoLector(modo) {
     const iframe = document.getElementById('frame-pdf');
     const botones = document.querySelectorAll('.btn-modo');
     
-    if (modo === 'oscuro') iframe.classList.add('pdf-oscuro');
-    else iframe.classList.remove('pdf-oscuro');
+    // En PDF.js el modo oscuro funciona mejor con estos valores
+    if (modo === 'oscuro') {
+        iframe.style.filter = "invert(90%) hue-rotate(180deg) brightness(0.7)";
+    } else {
+        iframe.style.filter = "none";
+    }
 
     botones.forEach(btn => {
         btn.classList.remove('active');
