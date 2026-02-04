@@ -13,14 +13,19 @@ function abrirLector(nombreArchivo) {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
-    // Usamos el visor oficial de PDF.js alojado, apuntando a TU archivo en GitHub
-    // Reemplaza 'TU_USUARIO' y 'TU_REPOSITORIO' por tus datos reales
-    const urlArchivo = `https://raw.githubusercontent.com/TU_USUARIO/TU_REPOSITORIO/main/pdfs/${nombreArchivo}`;
+    // IMPORTANTE: Cambia esto por tus datos reales
+    const usuario = "TU_USUARIO"; 
+    const repo = "TU_REPOSITORIO";
     
-    // El visor de PDF.js permite zoom, búsqueda y es perfecto para móviles
-    const visorPDF = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(urlArchivo)}`;
+    // Usamos el visor nativo de Google o una ruta directa si el PDF está en el mismo servidor
+    // Si estás en GitHub Pages, lo más sencillo es usar la ruta relativa:
+    const urlArchivo = `https://${usuario}.github.io/${repo}/pdfs/${nombreArchivo}`;
     
-    iframe.src = visorPDF;
+    // Si PDF.js de Mozilla te da error de "Missing PDF file", 
+    // es mejor usar el visor de Google Docs que sí acepta archivos de GitHub:
+    const visorFinal = `https://docs.google.com/viewer?url=${encodeURIComponent(urlArchivo)}&embedded=true`;
+    
+    iframe.src = visorFinal;
     lector.style.display = 'block';
     document.body.style.overflow = 'hidden';
     cambiarModoLector('claro');
@@ -44,7 +49,6 @@ function cambiarModoLector(modo) {
     const iframe = document.getElementById('frame-pdf');
     const botones = document.querySelectorAll('.btn-modo');
     
-    // En PDF.js el modo oscuro funciona mejor con estos valores
     if (modo === 'oscuro') {
         iframe.style.filter = "invert(90%) hue-rotate(180deg) brightness(0.7)";
     } else {
@@ -69,5 +73,6 @@ function pantallaCompleta() {
         else if (lector.webkitRequestFullscreen) lector.webkitRequestFullscreen();
     } else {
         if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
-}
+} // Se corrigió la coma por la llave de cierre
