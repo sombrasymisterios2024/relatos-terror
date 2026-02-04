@@ -154,7 +154,7 @@ a.btn-youtube span.yt-text {
     color: white;
 }
 
-/* --- LECTOR MODAL (NUEVO) --- */
+/* --- LECTOR MODAL --- */
 .modal-lector {
     display: none;
     position: fixed;
@@ -168,11 +168,12 @@ a.btn-youtube span.yt-text {
 
 .modal-contenido {
     position: relative;
-    margin: 60px auto 20px auto; /* Bajado un poco para dar espacio a botones */
+    margin: 60px auto 20px auto;
     width: 90%;
     height: 85vh;
     border: 2px solid var(--accent-color);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    background-color: #111; /* Fondo base para definir bordes */
 }
 
 /* Controles de Modo Claro/Oscuro */
@@ -218,11 +219,15 @@ a.btn-youtube span.yt-text {
     height: 100%;
     background: #000;
     transition: filter 0.3s ease;
+    border: none;
+    display: block;
 }
 
-/* Clase para invertir colores del PDF */
+/* MODIFICADO: Clase para invertir colores con fondo controlado */
 .pdf-oscuro {
-    filter: invert(90%) hue-rotate(180deg);
+    /* El brightness(0.85) evita que el fondo de Drive se vuelva blanco brillante */
+    /* El contrast(1.2) ayuda a que la hoja negra destaque sobre el fondo grisáceo */
+    filter: invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.2);
 }
 
 /* Animaciones */
