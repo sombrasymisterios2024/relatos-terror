@@ -52,7 +52,6 @@ h1 {
     font-weight: bold;
     border-radius: 8px;
     border: 2px solid #FF0000;
-    /* Importante: No ponemos uppercase aquí para que no afecte al cuadro rojo */
     font-family: 'Arial', sans-serif;
     letter-spacing: 1px;
     transition: all 0.3s ease;
@@ -65,8 +64,6 @@ h1 {
     color: #FF0000;
 }
 
-/* Estilo para el cuadro rojo que dice YouTube */
-/* Selector de máxima prioridad para forzar el diseño */
 a.btn-youtube span.yt-text {
     background: #FF0000 !important;
     color: #FFFFFF !important;
@@ -78,7 +75,6 @@ a.btn-youtube span.yt-text {
     font-size: 1.4rem !important; 
     display: inline-block !important;
     vertical-align: middle !important;
-    /* ESTA ES LA LÍNEA QUE MATA LAS MAYÚSCULAS */
     text-transform: none !important; 
     letter-spacing: -1px !important;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;
@@ -107,16 +103,35 @@ a.btn-youtube span.yt-text {
 .story-card {
     background: var(--card-bg);
     border: 1px solid #1a1a1a;
-    padding: 30px;
     transition: 0.4s;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    overflow: hidden; /* Para que la imagen no se salga de las esquinas redondeadas */
 }
 
 .story-card:hover {
     border-color: var(--accent-color);
     transform: translateY(-5px);
+}
+
+/* --- ESTILO DE LAS IMÁGENES DE PORTADA --- */
+.story-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--accent-color);
+    filter: grayscale(40%) contrast(110%);
+    transition: 0.5s ease;
+}
+
+.story-card:hover .story-image {
+    filter: grayscale(0%) contrast(120%);
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 20px; /* Espacio para el texto */
+    flex-grow: 1;
 }
 
 .btn-read {
@@ -128,7 +143,7 @@ a.btn-youtube span.yt-text {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
-    margin-top: 20px;
+    margin: 0 20px 20px 20px; /* Margen para que no toque los bordes */
 }
 
 .btn-read:hover {
