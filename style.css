@@ -106,7 +106,7 @@ a.btn-youtube span.yt-text {
     transition: 0.4s;
     display: flex;
     flex-direction: column;
-    overflow: hidden; /* Para que la imagen no se salga de las esquinas redondeadas */
+    overflow: hidden;
 }
 
 .story-card:hover {
@@ -122,7 +122,6 @@ a.btn-youtube span.yt-text {
     border-bottom: 2px solid var(--accent-color);
     filter: grayscale(40%) contrast(110%);
     transition: 0.5s ease;
-    /* ESTO ES NUEVO: Si la imagen no carga, verás un fondo rojo oscuro */
     background-color: #2a0000; 
     display: block;
 }
@@ -133,7 +132,7 @@ a.btn-youtube span.yt-text {
 }
 
 .card-content {
-    padding: 20px; /* Espacio para el texto */
+    padding: 20px;
     flex-grow: 1;
 }
 
@@ -146,12 +145,84 @@ a.btn-youtube span.yt-text {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
-    margin: 0 20px 20px 20px; /* Margen para que no toque los bordes */
+    margin: 0 20px 20px 20px;
+    cursor: pointer;
 }
 
 .btn-read:hover {
     background: var(--accent-color);
     color: white;
+}
+
+/* --- LECTOR MODAL (NUEVO) --- */
+.modal-lector {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.98);
+}
+
+.modal-contenido {
+    position: relative;
+    margin: 60px auto 20px auto; /* Bajado un poco para dar espacio a botones */
+    width: 90%;
+    height: 85vh;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Controles de Modo Claro/Oscuro */
+.controles-lectura {
+    position: absolute;
+    top: -50px;
+    left: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-modo {
+    background: #1a1a1a;
+    color: #c9c9c9;
+    border: 1px solid var(--accent-color);
+    padding: 8px 15px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+
+.btn-modo:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.cerrar-lector {
+    position: absolute;
+    top: -45px;
+    right: 0;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-family: 'Nosifer', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#frame-pdf {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transition: filter 0.3s ease;
+}
+
+/* Clase para invertir colores del PDF */
+.pdf-oscuro {
+    filter: invert(90%) hue-rotate(180deg);
 }
 
 /* Animaciones */
