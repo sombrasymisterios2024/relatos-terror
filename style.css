@@ -80,16 +80,6 @@ a.btn-youtube span.yt-text {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;
 }
 
-.btn-youtube:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-}
-
-.btn-youtube:hover .yt-text {
-    background: #FFFFFF !important;
-    color: #FF0000 !important;
-}
-
 /* --- CONTENEDOR DE HISTORIAS --- */
 .container {
     max-width: 1000px;
@@ -114,7 +104,6 @@ a.btn-youtube span.yt-text {
     transform: translateY(-5px);
 }
 
-/* --- ESTILO DE LAS IMÁGENES DE PORTADA --- */
 .story-image {
     width: 100%;
     height: 220px;
@@ -122,13 +111,6 @@ a.btn-youtube span.yt-text {
     border-bottom: 2px solid var(--accent-color);
     filter: grayscale(40%) contrast(110%);
     transition: 0.5s ease;
-    background-color: #2a0000; 
-    display: block;
-}
-
-.story-card:hover .story-image {
-    filter: grayscale(0%) contrast(120%);
-    transform: scale(1.05);
 }
 
 .card-content {
@@ -140,6 +122,7 @@ a.btn-youtube span.yt-text {
     display: block;
     text-align: center;
     padding: 12px;
+    background: none;
     color: var(--accent-color);
     border: 1px solid var(--accent-color);
     text-decoration: none;
@@ -147,6 +130,7 @@ a.btn-youtube span.yt-text {
     font-weight: bold;
     margin: 0 20px 20px 20px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn-read:hover {
@@ -168,21 +152,22 @@ a.btn-youtube span.yt-text {
 
 .modal-contenido {
     position: relative;
-    margin: 60px auto 20px auto;
+    margin: 70px auto 20px auto;
     width: 90%;
     height: 85vh;
     border: 2px solid var(--accent-color);
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    background-color: #000; /* Fondo negro puro */
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Controles de Modo Claro/Oscuro */
+/* Controles */
 .controles-lectura {
     position: absolute;
-    top: -50px;
+    top: -55px;
     left: 0;
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .btn-modo {
@@ -191,22 +176,15 @@ a.btn-youtube span.yt-text {
     border: 1px solid var(--accent-color);
     padding: 8px 15px;
     cursor: pointer;
-    font-family: 'Arial', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
-    transition: 0.3s;
     text-transform: uppercase;
+    transition: 0.3s;
 }
 
-/* Estilo para el botón cuando está seleccionado */
 .btn-modo.active {
     background: var(--accent-color);
     color: white;
-    box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
-}
-
-.btn-modo:hover:not(.active) {
-    background: #333;
 }
 
 .cerrar-lector {
@@ -217,26 +195,64 @@ a.btn-youtube span.yt-text {
     cursor: pointer;
     font-family: 'Nosifer', sans-serif;
     font-size: 14px;
-    letter-spacing: 1px;
 }
 
 #frame-pdf {
     width: 100%;
     height: 100%;
-    background: #000;
-    transition: filter 0.3s ease;
+    background: #fff; /* Fondo blanco inicial para el visor de Google */
     border: none;
     display: block;
 }
 
-/* MODIFICADO: Inversión con brillo reducido para fondo oscuro real */
+/* --- MODO OSCURO PARA EL IFRAME --- */
 .pdf-oscuro {
-    /* brightness(0.55) hace que el fondo de Drive se hunda en el negro */
-    /* contrast(1.4) hace que el texto blanco sobre hoja negra sea muy legible */
-    filter: invert(90%) hue-rotate(180deg) brightness(0.55) contrast(1.4) !important;
+    filter: invert(90%) hue-rotate(180deg) brightness(0.6) contrast(1.2) !important;
 }
 
-/* Animaciones */
+/* --- ESTILOS DE PANTALLA COMPLETA --- */
+#lector-pdf:fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #000 !important;
+}
+
+#lector-pdf:fullscreen .modal-contenido {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+}
+
+/* --- RESPONSIVE / MÓVILES --- */
+@media (max-width: 600px) {
+    h1 { font-size: 1.8rem; }
+    
+    .modal-contenido {
+        width: 100%;
+        height: 82vh;
+        margin-top: 100px;
+    }
+
+    .controles-lectura {
+        top: -85px;
+        width: 100%;
+        justify-content: flex-start;
+        padding-left: 5px;
+        flex-wrap: wrap; /* Para que quepan los 3 botones en pantallas muy angostas */
+    }
+
+    .btn-modo {
+        padding: 10px 12px;
+        font-size: 10px;
+    }
+
+    .cerrar-lector {
+        top: -40px;
+        right: 10px;
+    }
+}
+
 @keyframes pulse-red {
     0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
     70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
@@ -248,33 +264,4 @@ footer {
     padding: 40px;
     font-size: 0.9rem;
     color: #555;
-}
-
-/* --- AJUSTES PARA MÓVILES --- */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 1.8rem; /* Título más pequeño para que no se corte */
-    }
-
-    .modal-contenido {
-        width: 95%; /* Aprovechamos más el ancho en celular */
-        margin: 80px auto 10px auto; /* Más espacio arriba para los botones */
-        height: 80vh;
-    }
-
-    .controles-lectura {
-        flex-direction: row;
-        gap: 5px;
-        top: -65px; /* Subimos los botones para que no choquen */
-    }
-
-    .btn-modo {
-        padding: 6px 8px;
-        font-size: 10px; /* Botones más pequeños para que quepan */
-    }
-
-    .cerrar-lector {
-        top: -35px;
-        font-size: 12px;
-    }
 }
