@@ -155,25 +155,26 @@ h1 {
     }
 }
 
-/* Estilo para que parezca el logo oficial de YouTube */
+/* Estilo para que el cuadro de YouTube sea más grande y resalte */
 .yt-text {
-    background: #FF0000 !important; /* Rojo YouTube obligatorio */
-    color: #FFFFFF !important;     /* Texto blanco obligatorio */
-    padding: 3px 8px !important;
-    border-radius: 6px !important;
+    background: #FF0000 !important; 
+    color: #FFFFFF !important;     
+    padding: 6px 12px !important; /* Más espacio interno para que el cuadro sea grande */
+    border-radius: 8px !important;
     font-family: 'Arial Black', sans-serif !important;
     font-weight: 900 !important;
-    margin-left: 8px;
-    font-size: 0.9rem;
+    margin-left: 12px; /* Más separación del texto anterior */
+    font-size: 1.1rem !important; /* Tamaño más grande que el texto de "Suscrito..." */
     display: inline-block;
     vertical-align: middle;
-    letter-spacing: -0.5px; /* Para que se vea más como el logo */
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    letter-spacing: -0.5px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    transition: all 0.3s ease;
 }
 
-/* Efecto cuando pasas el mouse por encima del botón */
+/* Efecto Hover para que resalte aún más */
 .btn-youtube:hover .yt-text {
     background: #FFFFFF !important;
     color: #FF0000 !important;
-    box-shadow: 0 0 15px white;
+    transform: scale(1.1); /* Crece un poquito más al pasar el mouse */
 }
