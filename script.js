@@ -24,48 +24,45 @@ function abrirLector(url) {
     iframe.src = url;
     lector.style.display = 'block';
     
-    // Bloqueamos el scroll de la página principal
+    // Bloqueamos el scroll de la página principal para que no se mueva al leer
     document.body.style.overflow = 'hidden';
     
-    // Al abrir, forzamos el modo claro para resetear la interfaz
+    // Al abrir, siempre empezamos en modo claro para que los botones coincidan
     cambiarModoLector('claro');
 }
 
 /**
- * Cierra el lector y limpia el iframe
+ * Cierra el lector y limpia el iframe para liberar memoria
  */
 function cerrarLector() {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
     lector.style.display = 'none';
-    iframe.src = ''; // Limpiamos la URL para ahorrar recursos
+    iframe.src = ''; 
     
-    // Devolvemos el scroll a la página
+    // Restauramos el scroll de la página
     document.body.style.overflow = 'auto';
 }
 
 /**
- * Cambia entre modo claro y oscuro aplicando filtros al iframe
- * y actualizando el estado visual de los botones.
+ * Cambia entre modo claro y oscuro. Gestiona el filtro del iframe 
+ * y la iluminación de los botones.
  */
 function cambiarModoLector(modo) {
     const iframe = document.getElementById('frame-pdf');
     const botones = document.querySelectorAll('.btn-modo');
     
-    // 1. Aplicar o quitar el filtro de inversión al iframe
+    // 1. Aplicar o quitar el filtro visual al iframe
     if (modo === 'oscuro') {
         iframe.classList.add('pdf-oscuro');
     } else {
         iframe.classList.remove('pdf-oscuro');
     }
 
-    // 2. Gestionar el marcador visual (.active) en los botones
+    // 2. Marcar visualmente qué modo está activo
     botones.forEach(btn => {
-        // Quitamos la clase 'active' de todos los botones primero
         btn.classList.remove('active');
-        
-        // Verificamos cuál botón activar basándonos en el texto que contiene
         const textoBoton = btn.innerText.toUpperCase();
         
         if (modo === 'oscuro' && textoBoton.includes('OSCURO')) {
@@ -74,4 +71,17 @@ function cambiarModoLector(modo) {
             btn.classList.add('active');
         }
     });
+}
+
+/**
+ * Abre el PDF en una pestaña nueva.
+ * Solución definitiva para el zoom en dispositivos móviles.
+ */
+function pantallaCompleta() {
+    const iframe = document.getElementById('frame-pdf');
+    if (iframe.src) {
+        // Cambiamos '/preview' por '/view' para forzar el modo de visualización nativo
+        let urlDirecta = iframe.src.replace('/preview', '/view');
+        window.open(urlDirecta, '_blank');
+    }
 }
