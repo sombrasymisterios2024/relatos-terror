@@ -173,7 +173,7 @@ a.btn-youtube span.yt-text {
     height: 85vh;
     border: 2px solid var(--accent-color);
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-    background-color: #111; /* Fondo base para definir bordes */
+    background-color: #000; /* Fondo negro puro */
 }
 
 /* Controles de Modo Claro/Oscuro */
@@ -198,9 +198,15 @@ a.btn-youtube span.yt-text {
     text-transform: uppercase;
 }
 
-.btn-modo:hover {
+/* Estilo para el botón cuando está seleccionado */
+.btn-modo.active {
     background: var(--accent-color);
     color: white;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+}
+
+.btn-modo:hover:not(.active) {
+    background: #333;
 }
 
 .cerrar-lector {
@@ -223,11 +229,11 @@ a.btn-youtube span.yt-text {
     display: block;
 }
 
-/* MODIFICADO: Clase para invertir colores con fondo controlado */
+/* MODIFICADO: Inversión con brillo reducido para fondo oscuro real */
 .pdf-oscuro {
-    /* El brightness(0.85) evita que el fondo de Drive se vuelva blanco brillante */
-    /* El contrast(1.2) ayuda a que la hoja negra destaque sobre el fondo grisáceo */
-    filter: invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.2);
+    /* brightness(0.55) hace que el fondo de Drive se hunda en el negro */
+    /* contrast(1.4) hace que el texto blanco sobre hoja negra sea muy legible */
+    filter: invert(90%) hue-rotate(180deg) brightness(0.55) contrast(1.4) !important;
 }
 
 /* Animaciones */
