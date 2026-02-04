@@ -23,35 +23,10 @@ body {
     min-height: 100vh;
 }
 
-/* Estilo para la palabra YouTube dentro del botón */
-.yt-text {
-    background-color: #ff0000; /* Fondo rojo para la palabra */
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Arial Black', sans-serif;
-    margin-left: 5px;
-    font-size: 0.85rem;
-    display: inline-block;
-    line-height: 1;
-}
-
-/* Ajuste para que el icono de play siga siendo rojo neón */
-.btn-youtube i {
-    font-size: 1.8rem;
-    color: #ff0000; 
-    filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8));
-}
-
-/* Al pasar el mouse, invertimos para que se vea profesional */
-.btn-youtube:hover .yt-text {
-    background-color: white;
-    color: #ff0000;
-}
 header {
     text-align: center;
-    padding: 60px 20px;
-    border-bottom: 1px solid var(--accent-color);
+    padding: 80px 20px;
+    border-bottom: 2px solid var(--accent-color);
     width: 100%;
 }
 
@@ -60,12 +35,68 @@ h1 {
     color: var(--accent-color);
     font-size: 2.5rem;
     text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+    margin-bottom: 10px;
 }
 
+/* --- BOTÓN DE YOUTUBE PREMIUM --- */
+.btn-youtube {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 12px 25px;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid #FF0000;
+    /* Importante: No ponemos uppercase aquí para que no afecte al cuadro rojo */
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+    animation: pulse-red 2s infinite;
+}
+
+.btn-youtube i {
+    font-size: 1.8rem;
+    color: #FF0000;
+}
+
+/* Estilo para el cuadro rojo que dice YouTube */
+.yt-text {
+    background: #FF0000 !important;
+    color: #FFFFFF !important;
+    padding: 6px 15px !important; /* Cuadro grande */
+    border-radius: 6px !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-weight: 900 !important;
+    margin-left: 10px;
+    font-size: 1.4rem !important; /* Mucho más grande que el texto base */
+    display: inline-block;
+    vertical-align: middle;
+    text-transform: none !important; /* Permite minúsculas (YouTube) */
+    letter-spacing: -1px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+.btn-youtube:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
+}
+
+.btn-youtube:hover .yt-text {
+    background: #FFFFFF !important;
+    color: #FF0000 !important;
+}
+
+/* --- CONTENEDOR DE HISTORIAS --- */
 .container {
     max-width: 1000px;
-    width: 90%;
-    margin: 50px 0;
+    width: 95%;
+    margin: 50px auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -103,78 +134,16 @@ h1 {
     color: white;
 }
 
-/* Estilo del Botón de YouTube Estilo Neón Premium */
-.btn-youtube {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 25px;
-    padding: 14px 30px;
-    background-color: #000000; /* Fondo negro para que resalte el borde */
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 8px; /* Menos redondeado, más moderno */
-    border: 2px solid #FF0000; /* Borde rojo sólido */
-    text-transform: uppercase;
-    font-family: 'Arial', sans-serif;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    /* Brillo inicial suave */
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-    animation: pulse-red 2s infinite;
-}
-
-.btn-youtube i {
-    font-size: 1.6rem;
-    color: #FF0000; /* El icono de YouTube en rojo */
-}
-
-.btn-youtube:hover {
-    transform: translateY(-3px);
-    background-color: #FF0000; /* Se llena de rojo al pasar el mouse */
-    color: #fff;
-    box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
-}
-
-.btn-youtube:hover i {
-    color: #fff; /* El icono se vuelve blanco al hacer hover */
-}
-
-/* Animación de latido mejorada */
+/* Animaciones */
 @keyframes pulse-red {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
 }
 
-/* Estilo para que el cuadro de YouTube sea más grande y resalte */
-.yt-text {
-    background: #FF0000 !important; 
-    color: #FFFFFF !important;     
-    padding: 6px 12px !important; /* Más espacio interno para que el cuadro sea grande */
-    border-radius: 8px !important;
-    font-family: 'Arial Black', sans-serif !important;
-    font-weight: 900 !important;
-    margin-left: 12px; /* Más separación del texto anterior */
-    font-size: 1.1rem !important; /* Tamaño más grande que el texto de "Suscrito..." */
-    display: inline-block;
-    vertical-align: middle;
-    letter-spacing: -0.5px;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-    transition: all 0.3s ease;
-}
-
-/* Efecto Hover para que resalte aún más */
-.btn-youtube:hover .yt-text {
-    background: #FFFFFF !important;
-    color: #FF0000 !important;
-    transform: scale(1.1); /* Crece un poquito más al pasar el mouse */
+footer {
+    text-align: center;
+    padding: 40px;
+    font-size: 0.9rem;
+    color: #555;
 }
