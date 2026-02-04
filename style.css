@@ -122,6 +122,9 @@ a.btn-youtube span.yt-text {
     border-bottom: 2px solid var(--accent-color);
     filter: grayscale(40%) contrast(110%);
     transition: 0.5s ease;
+    /* ESTO ES NUEVO: Si la imagen no carga, verás un fondo rojo oscuro */
+    background-color: #2a0000; 
+    display: block;
 }
 
 .story-card:hover .story-image {
