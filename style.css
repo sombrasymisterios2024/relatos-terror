@@ -78,38 +78,54 @@ h1 {
     color: white;
 }
 
-/* Estilo del Botón de YouTube */
+/* Estilo del Botón de YouTube Estilo Neón Premium */
 .btn-youtube {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px; /* Espacio entre el logo y el texto */
-    margin-top: 20px;
-    padding: 12px 25px;
-    background-color: #FF0000; /* Rojo YouTube */
-    color: white;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 14px 30px;
+    background-color: #000000; /* Fondo negro para que resalte el borde */
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 50px; /* Bordes redondeados estilo YouTube */
+    border-radius: 8px; /* Menos redondeado, más moderno */
+    border: 2px solid #FF0000; /* Borde rojo sólido */
     text-transform: uppercase;
-    font-family: Arial, sans-serif;
-    transition: transform 0.3s, box-shadow 0.3s;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    /* Brillo inicial suave */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
     animation: pulse-red 2s infinite;
 }
 
 .btn-youtube i {
-    font-size: 1.5rem; /* Tamaño del icono */
+    font-size: 1.6rem;
+    color: #FF0000; /* El icono de YouTube en rojo */
 }
 
 .btn-youtube:hover {
-    transform: scale(1.05);
-    background-color: #cc0000;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+    transform: translateY(-3px);
+    background-color: #FF0000; /* Se llena de rojo al pasar el mouse */
+    color: #fff;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.8);
 }
 
-/* Animación de latido */
+.btn-youtube:hover i {
+    color: #fff; /* El icono se vuelve blanco al hacer hover */
+}
+
+/* Animación de latido mejorada */
 @keyframes pulse-red {
-    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
 }
