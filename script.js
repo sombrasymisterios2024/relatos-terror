@@ -24,43 +24,44 @@ function abrirLector(url) {
     iframe.src = url;
     lector.style.display = 'block';
     
-    // Bloqueamos el scroll de la página principal para que no se mueva al leer
+    // Bloqueamos el scroll de la página principal
     document.body.style.overflow = 'hidden';
     
-    // Al abrir, siempre empezamos en modo claro para que los botones coincidan
+    // Al abrir, siempre empezamos en modo claro
     cambiarModoLector('claro');
 }
 
 /**
- * Cierra el lector y limpia el iframe para liberar memoria
+ * Cierra el lector y limpia el iframe
  */
 function cerrarLector() {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
+    // Si estamos en pantalla completa al cerrar, salimos de ella
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    }
+    
     lector.style.display = 'none';
     iframe.src = ''; 
     
-    // Restauramos el scroll de la página
     document.body.style.overflow = 'auto';
 }
 
 /**
- * Cambia entre modo claro y oscuro. Gestiona el filtro del iframe 
- * y la iluminación de los botones.
+ * Cambia entre modo claro y oscuro.
  */
 function cambiarModoLector(modo) {
     const iframe = document.getElementById('frame-pdf');
     const botones = document.querySelectorAll('.btn-modo');
     
-    // 1. Aplicar o quitar el filtro visual al iframe
     if (modo === 'oscuro') {
         iframe.classList.add('pdf-oscuro');
     } else {
         iframe.classList.remove('pdf-oscuro');
     }
 
-    // 2. Marcar visualmente qué modo está activo
     botones.forEach(btn => {
         btn.classList.remove('active');
         const textoBoton = btn.innerText.toUpperCase();
@@ -74,14 +75,25 @@ function cambiarModoLector(modo) {
 }
 
 /**
- * Abre el PDF en una pestaña nueva.
- * Solución definitiva para el zoom en dispositivos móviles.
+ * Activa el modo Pantalla Completa real para el lector.
+ * Esto soluciona el zoom en móviles sin abrir pestañas nuevas.
  */
 function pantallaCompleta() {
-    const iframe = document.getElementById('frame-pdf');
-    if (iframe.src) {
-        // Cambiamos '/preview' por '/view' para forzar el modo de visualización nativo
-        let urlDirecta = iframe.src.replace('/preview', '/view');
-        window.open(urlDirecta, '_blank');
+    const lector = document.getElementById('lector-pdf');
+
+    // Si no hay nada en pantalla completa, entramos
+    if (!document.fullscreenElement) {
+        if (lector.requestFullscreen) {
+            lector.requestFullscreen();
+        } else if (lector.webkitRequestFullscreen) { /* Safari / iOS */
+            lector.webkitRequestFullscreen();
+        } else if (lector.msRequestFullscreen) { /* IE11 */
+            lector.msRequestFullscreen();
+        }
+    } else {
+        // Si ya estamos en pantalla completa, salimos
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
     }
 }
