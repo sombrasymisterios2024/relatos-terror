@@ -49,6 +49,8 @@ h1 {
     border-radius: 8px;
     border: 2px solid #FF0000;
     transition: 0.3s;
+    /* ESTA ES LA LÍNEA QUE FALTA */
+    animation: latido 2s infinite;
 }
 
 .btn-youtube span {
@@ -187,4 +189,20 @@ footer {
     color: #555; /* Color grisáceo sutil para el copyright */
     font-size: 0.9rem;
     letter-spacing: 1px;
+}
+
+/* EFECTO DE LATIDO */
+@keyframes latido {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
 }
