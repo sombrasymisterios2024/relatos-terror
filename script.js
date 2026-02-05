@@ -13,20 +13,19 @@ function abrirLector(nombreArchivo) {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
-    // 1. REEMPLAZA ESTO CON TUS DATOS REALES
-    const usuario = "TU_USUARIO_GITHUB"; 
-    const repositorio = "NOMBRE_DE_TU_REPOSITORIO";
-
-    // 2. Construimos la URL de tu sitio de GitHub Pages (donde están tus archivos)
-    // Esto asume que tienes tus PDFs en una carpeta llamada 'pdfs'
-    const urlArchivo = `https://${usuario}.github.io/${repositorio}/pdfs/${nombreArchivo}`;
+    // IMPORTANTE: Asegúrate de que esta URL sea la de tu GitHub Pages
+    // Ejemplo: https://misteriosdeaiden.github.io/biblioteca/
+    const urlBase = window.location.origin + window.location.pathname.replace('index.html', '');
     
-    // 3. Usamos el visor de Google Docs que permite zoom
-    const visorFinal = `https://docs.google.com/viewer?url=${encodeURIComponent(urlArchivo)}&embedded=true`;
+    // Cargamos el archivo directamente desde tu servidor de GitHub
+    const urlFinal = `${urlBase}${nombreArchivo}`;
     
-    iframe.src = visorFinal;
+    iframe.src = urlFinal;
     lector.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    
+    // El modo claro/oscuro solo afectará al fondo del modal, 
+    // ya que el PDF nativo suele tener sus propios controles.
     cambiarModoLector('claro');
 }
 
