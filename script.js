@@ -13,19 +13,19 @@ function abrirLector(nombreArchivo) {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
-    // IMPORTANTE: Asegúrate de que esta URL sea la de tu GitHub Pages
-    // Ejemplo: https://misteriosdeaiden.github.io/biblioteca/
-    const urlBase = window.location.origin + window.location.pathname.replace('index.html', '');
+    // 1. REEMPLAZA ESTO CON TUS DATOS DE GITHUB
+    const usuario = "TU_USUARIO_GITHUB"; 
+    const repositorio = "NOMBRE_DE_TU_REPOSITORIO";
+
+    // 2. Construimos la URL del archivo PDF en tu carpeta /pdfs/ de GitHub Pages
+    const urlArchivo = `https://${usuario}.github.io/${repositorio}/pdfs/${nombreArchivo}`;
     
-    // Cargamos el archivo directamente desde tu servidor de GitHub
-    const urlFinal = `${urlBase}${nombreArchivo}`;
+    // 3. Usamos el visor de PDF.js (Mozilla) que permite zoom pellizcando la pantalla
+    const visorPDF = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(urlArchivo)}`;
     
-    iframe.src = urlFinal;
+    iframe.src = visorPDF;
     lector.style.display = 'block';
     document.body.style.overflow = 'hidden';
-    
-    // El modo claro/oscuro solo afectará al fondo del modal, 
-    // ya que el PDF nativo suele tener sus propios controles.
     cambiarModoLector('claro');
 }
 
@@ -48,7 +48,7 @@ function cambiarModoLector(modo) {
     const botones = document.querySelectorAll('.btn-modo');
     
     if (modo === 'oscuro') {
-        iframe.style.filter = "invert(90%) hue-rotate(180deg) brightness(0.7)";
+        iframe.style.filter = "invert(90%) hue-rotate(180deg) brightness(0.7) contrast(1.2)";
     } else {
         iframe.style.filter = "none";
     }
@@ -73,4 +73,4 @@ function pantallaCompleta() {
         if (document.exitFullscreen) document.exitFullscreen();
         else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
     }
-} // Se corrigió la coma por la llave de cierre
+}
