@@ -1,4 +1,3 @@
-/* --- VARIABLES DE COLOR --- */
 :root {
     --bg-color: #050505;
     --card-bg: #121212;
@@ -6,13 +5,13 @@
     --text-color: #c9c9c9;
 }
 
-/* --- REGLAS GLOBALES --- */
+/* Bloqueo visual de selección en toda la web */
 * {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; /* Evita que el usuario seleccione texto */
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    user-select: none;
+    box-sizing: border-box;
 }
 
 body {
@@ -20,54 +19,152 @@ body {
     color: var(--text-color);
     font-family: 'Crimson Text', serif;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* Bloqueo de scroll cuando el lector está activo */
 body.lector-abierto {
     overflow: hidden;
 }
 
-/* --- BARRA SUPERIOR DEL LECTOR --- */
-.barra-superior-lector {
-    height: 40px; /* Altura delgada y profesional */
+/* --- HEADER Y BOTÓN YOUTUBE (Sin cambios) --- */
+header {
+    text-align: center;
+    padding: 80px 20px;
+    border-bottom: 2px solid var(--accent-color);
     width: 100%;
-    background-color: #000; /* Fondo negro sólido para separar del PDF */
-    display: flex; /* Activa el modo caja flexible */
-    justify-content: space-between; /* Envía el Switch a la izquierda y Cerrar a la derecha */
-    align-items: center; /* Centra los elementos verticalmente */
-    padding: 0 15px; /* Espaciado interno lateral */
-    border-bottom: 1px solid var(--accent-color); /* Línea decorativa roja */
-    z-index: 10001; /* Asegura que esté por encima de todo */
 }
 
-/* --- CONTENEDOR DEL SWITCH --- */
-.switch-container {
-    display: flex; /* Alinea iconos y switch en línea */
+h1 {
+    font-family: 'Nosifer', sans-serif;
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.btn-youtube {
+    display: inline-flex;
     align-items: center;
-    gap: 8px; /* Espacio entre sol, luna y switch */
-    width: auto; /* IMPORTANTE: Evita que el switch ocupe toda la barra */
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+    padding: 12px 25px;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid #FF0000;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+    animation: pulse-red 2s infinite;
 }
 
-.switch-container i {
-    font-size: 14px; /* Iconos pequeños */
-    color: #555;
+.btn-youtube i { color: #FF0000; font-size: 1.8rem; }
+
+a.btn-youtube span.yt-text {
+    background: #FF0000 !important;
+    color: #FFFFFF !important;
+    padding: 6px 15px !important;
+    border-radius: 6px !important;
+    font-family: 'Arial Black', sans-serif !important;
+    margin-left: 10px !important;
+    font-size: 1.4rem !important; 
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;
 }
 
-/* --- DISEÑO DEL INTERRUPTOR (SWITCH) --- */
+/* --- CONTENEDOR DE HISTORIAS --- */
+.container {
+    max-width: 1000px;
+    width: 95%;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.story-card {
+    background: var(--card-bg);
+    border: 1px solid #1a1a1a;
+    transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+}
+
+.story-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.card-content { padding: 20px; flex-grow: 1; }
+
+.btn-read {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0 20px 20px 20px;
+    cursor: pointer;
+    background: none;
+}
+
+.btn-read:hover { background: var(--accent-color); color: white; }
+
+/* --- LECTOR MODAL PROFESIONAL --- */
+.modal-lector {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background-color: #000;
+    flex-direction: column; /* Apila barra superior e iframe */
+}
+
+/* BARRA SUPERIOR PROPIA (Donde viven tus botones ahora) */
+.barra-superior-lector {
+    height: 45px;
+    width: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--accent-color);
+    z-index: 10001;
+}
+
+/* --- SWITCH MÁS PEQUEÑO Y PULIDO --- */
+.switch-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
 .switch {
     position: relative;
     display: inline-block;
-    width: 32px;  /* Ancho reducido para que sea discreto */
-    height: 16px; /* Altura reducida */
+    width: 38px;
+    height: 19px;
 }
 
-.switch input { opacity: 0; width: 0; height: 0; } /* Esconde el checkbox real */
+.switch input { opacity: 0; width: 0; height: 0; }
 
 .slider {
     position: absolute;
     cursor: pointer;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #222; /* Color de fondo cuando está apagado */
+    background-color: #222;
     transition: .4s;
     border-radius: 20px;
     border: 1px solid #444;
@@ -76,65 +173,48 @@ body.lector-abierto {
 .slider:before {
     position: absolute;
     content: "";
-    height: 10px; /* Tamaño de la bolita */
-    width: 10px;
-    left: 2px;
-    bottom: 2px;
-    background-color: #aaa;
+    height: 13px; width: 13px;
+    left: 2px; bottom: 2px;
+    background-color: #ccc;
     transition: .4s;
     border-radius: 50%;
 }
 
-/* Colores cuando el switch está activado (Modo Oscuro) */
-input:checked + .slider { 
-    background-color: var(--accent-color); 
-    border-color: var(--accent-color); 
-}
+input:checked + .slider { background-color: var(--accent-color); border-color: var(--accent-color); }
+input:checked + .slider:before { transform: translateX(19px); background-color: #fff; }
 
-/* Movimiento de la bolita al activar */
-input:checked + .slider:before { 
-    transform: translateX(16px); 
-    background-color: #fff; 
-}
-
-/* --- BOTÓN CERRAR --- */
+/* --- BOTÓN CERRAR DISCRETO --- */
 .cerrar-lector {
-    color: var(--accent-color);
-    font-family: 'Crimson Text', serif; /* Fuente elegante */
-    font-size: 11px; /* Tamaño pequeño y discreto */
+    color: var(--text-color);
+    font-family: 'Crimson Text', serif;
+    font-size: 13px;
     font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
     cursor: pointer;
-    display: flex; /* Alinea el icono 'X' con el texto */
-    align-items: center;
-    gap: 5px;
     transition: 0.3s;
-    /* Eliminamos position: absolute; para que no flote arriba */
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.cerrar-lector:hover {
-    color: #ff0000; /* Efecto visual al pasar el ratón */
-    transform: scale(1.05);
-}
+.cerrar-lector:hover { color: #ff0000; }
 
-/* --- ÁREA DEL CONTENIDO (PDF) --- */
-.modal-lector {
-    display: none; /* Se activa vía JS */
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100vw; height: 100vh;
-    background-color: #000;
-    flex-direction: column; /* Apila la barra negra arriba y el PDF abajo */
-}
-
+/* --- CONTENIDO DEL PDF --- */
 .modal-contenido {
     width: 100%;
-    /* Ocupa el 100% de la pantalla menos los 40px de la barra superior */
-    height: calc(100vh - 40px); 
+    height: calc(100vh - 45px); /* Ocupa el resto de la pantalla */
     position: relative;
-    overflow: hidden;
+    background-color: #000;
+}
+
+/* El escudo solo protege el área del iframe, no la barra de tus botones */
+.modal-contenido::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 5;
+    background: transparent;
+    pointer-events: none;
 }
 
 #frame-pdf {
@@ -142,16 +222,22 @@ input:checked + .slider:before {
     height: 100%;
     display: block;
     border: none;
-    background-color: #fff; /* Fondo blanco inicial para el PDF */
+    background-color: #fff;
+    position: relative;
+    z-index: 1;
 }
 
-/* --- BLOQUEO DE IMPRESIÓN --- */
-@media print {
-    body { display: none !important; }
+/* --- BLOQUEOS Y ANIMACIONES --- */
+@media print { body { display: none !important; } }
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
 }
 
-/* --- RESPONSIVE PARA MÓVILES --- */
+/* Responsive para la barra superior */
 @media (max-width: 600px) {
     .barra-superior-lector { padding: 0 10px; }
-    .cerrar-lector { font-size: 10px; } /* Más pequeño en celulares */
+    .cerrar-lector { font-size: 11px; }
 }
