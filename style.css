@@ -1,9 +1,10 @@
-/* --- VARIABLES DE COLOR --- */
+/* --- VARIABLES DE COLOR Y DIMENSIONES --- */
 :root {
     --bg-color: #050505;
     --card-bg: #121212;
     --accent-color: #8b0000;
     --text-color: #c9c9c9;
+    --barra-alto: 40px; /* Altura unificada para PC */
 }
 
 /* --- REGLAS GLOBALES --- */
@@ -11,8 +12,8 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none; /* Evita que el usuario seleccione texto */
-    box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+    user-select: none;
+    box-sizing: border-box;
 }
 
 body {
@@ -22,34 +23,36 @@ body {
     margin: 0;
 }
 
-/* Bloqueo de scroll cuando el lector está activo */
+/* Evita que la web de fondo se mueva al leer */
 body.lector-abierto {
     overflow: hidden;
+    position: fixed; /* Refuerzo para móviles */
+    width: 100%;
 }
 
 /* --- BARRA SUPERIOR DEL LECTOR --- */
 .barra-superior-lector {
-    height: 40px; /* Altura delgada y profesional */
+    height: var(--barra-alto);
     width: 100%;
-    background-color: #000; /* Fondo negro sólido para separar del PDF */
-    display: flex; /* Activa el modo caja flexible */
-    justify-content: space-between; /* Envía el Switch a la izquierda y Cerrar a la derecha */
-    align-items: center; /* Centra los elementos verticalmente */
-    padding: 0 15px; /* Espaciado interno lateral */
-    border-bottom: 1px solid var(--accent-color); /* Línea decorativa roja */
-    z-index: 10001; /* Asegura que esté por encima de todo */
+    background-color: #000;
+    display: flex;
+    justify-content: space-between; /* Switch izquierda, Cerrar derecha */
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--accent-color);
+    z-index: 10001;
 }
 
 /* --- CONTENEDOR DEL SWITCH --- */
 .switch-container {
-    display: flex; /* Alinea iconos y switch en línea */
+    display: flex;
     align-items: center;
-    gap: 8px; /* Espacio entre sol, luna y switch */
-    width: auto; /* IMPORTANTE: Evita que el switch ocupe toda la barra */
+    gap: 8px;
+    width: auto; /* Evita estiramientos innecesarios */
 }
 
 .switch-container i {
-    font-size: 14px; /* Iconos pequeños */
+    font-size: 14px;
     color: #555;
 }
 
@@ -57,17 +60,17 @@ body.lector-abierto {
 .switch {
     position: relative;
     display: inline-block;
-    width: 32px;  /* Ancho reducido para que sea discreto */
-    height: 16px; /* Altura reducida */
+    width: 32px; 
+    height: 16px;
 }
 
-.switch input { opacity: 0; width: 0; height: 0; } /* Esconde el checkbox real */
+.switch input { opacity: 0; width: 0; height: 0; }
 
 .slider {
     position: absolute;
     cursor: pointer;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #222; /* Color de fondo cuando está apagado */
+    background-color: #222;
     transition: .4s;
     border-radius: 20px;
     border: 1px solid #444;
@@ -76,7 +79,7 @@ body.lector-abierto {
 .slider:before {
     position: absolute;
     content: "";
-    height: 10px; /* Tamaño de la bolita */
+    height: 10px;
     width: 10px;
     left: 2px;
     bottom: 2px;
@@ -85,13 +88,11 @@ body.lector-abierto {
     border-radius: 50%;
 }
 
-/* Colores cuando el switch está activado (Modo Oscuro) */
 input:checked + .slider { 
     background-color: var(--accent-color); 
     border-color: var(--accent-color); 
 }
 
-/* Movimiento de la bolita al activar */
 input:checked + .slider:before { 
     transform: translateX(16px); 
     background-color: #fff; 
@@ -100,39 +101,39 @@ input:checked + .slider:before {
 /* --- BOTÓN CERRAR --- */
 .cerrar-lector {
     color: var(--accent-color);
-    font-family: 'Crimson Text', serif; /* Fuente elegante */
-    font-size: 11px; /* Tamaño pequeño y discreto */
+    font-family: 'Crimson Text', serif;
+    font-size: 11px;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    display: flex; /* Alinea el icono 'X' con el texto */
+    display: flex;
     align-items: center;
     gap: 5px;
     transition: 0.3s;
-    /* Eliminamos position: absolute; para que no flote arriba */
 }
 
 .cerrar-lector:hover {
-    color: #ff0000; /* Efecto visual al pasar el ratón */
+    color: #ff0000;
     transform: scale(1.05);
 }
 
-/* --- ÁREA DEL CONTENIDO (PDF) --- */
+/* --- LECTOR MODAL Y CONTENIDO --- */
 .modal-lector {
-    display: none; /* Se activa vía JS */
+    display: none; 
     position: fixed;
     z-index: 9999;
     left: 0; top: 0;
-    width: 100vw; height: 100vh;
+    width: 100vw; 
+    height: 100vh;
     background-color: #000;
-    flex-direction: column; /* Apila la barra negra arriba y el PDF abajo */
+    flex-direction: column; /* Apila barra y PDF */
 }
 
 .modal-contenido {
     width: 100%;
-    /* Ocupa el 100% de la pantalla menos los 40px de la barra superior */
-    height: calc(100vh - 40px); 
+    /* Ocupa el espacio restante dinámicamente */
+    flex: 1; 
     position: relative;
     overflow: hidden;
 }
@@ -142,7 +143,7 @@ input:checked + .slider:before {
     height: 100%;
     display: block;
     border: none;
-    background-color: #fff; /* Fondo blanco inicial para el PDF */
+    background-color: #fff;
 }
 
 /* --- BLOQUEO DE IMPRESIÓN --- */
@@ -150,8 +151,22 @@ input:checked + .slider:before {
     body { display: none !important; }
 }
 
-/* --- RESPONSIVE PARA MÓVILES --- */
+/* --- AJUSTES RESPONSIVE (CELULARES) --- */
 @media (max-width: 600px) {
-    .barra-superior-lector { padding: 0 10px; }
-    .cerrar-lector { font-size: 10px; } /* Más pequeño en celulares */
+    :root {
+        --barra-alto: 48px; /* Barra un poco más alta para dedos en móvil */
+    }
+
+    .barra-superior-lector { 
+        padding: 0 12px; 
+    }
+
+    .cerrar-lector { 
+        font-size: 10px; 
+        padding: 5px; /* Área de toque más fácil */
+    }
+
+    .switch-container i {
+        font-size: 12px; /* Iconos más discretos */
+    }
 }
