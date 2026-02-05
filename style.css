@@ -1,172 +1,139 @@
-/* --- VARIABLES DE COLOR Y DIMENSIONES --- */
+/* --- RESET Y VARIABLES --- */
 :root {
     --bg-color: #050505;
     --card-bg: #121212;
     --accent-color: #8b0000;
     --text-color: #c9c9c9;
-    --barra-alto: 40px; /* Altura unificada para PC */
+    --barra-alto: 45px;
 }
 
-/* --- REGLAS GLOBALES --- */
 * {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
+/* --- WEB GENERAL (PC Y MÓVIL) --- */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Crimson Text', serif;
-    margin: 0;
+    line-height: 1.6;
 }
 
-/* Evita que la web de fondo se mueva al leer */
+/* FIX: Solo aplicar fixed cuando el lector esté abierto */
 body.lector-abierto {
     overflow: hidden;
-    position: fixed; /* Refuerzo para móviles */
-    width: 100%;
 }
 
-/* --- BARRA SUPERIOR DEL LECTOR --- */
+header {
+    text-align: center;
+    padding: 60px 20px;
+    border-bottom: 2px solid var(--accent-color);
+    background-color: var(--bg-color); /* Asegura que no se vea negro sólido sin estilo */
+}
+
+h1 {
+    font-family: 'Nosifer', sans-serif;
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* --- LECTOR MODAL (ESTRUCTURA CORREGIDA) --- */
+.modal-lector {
+    display: none; 
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: #000;
+    z-index: 99999;
+    /* Usamos Flexbox para asegurar que la barra se quede arriba y el PDF abajo */
+    display: none; 
+    flex-direction: column;
+}
+
 .barra-superior-lector {
     height: var(--barra-alto);
+    min-height: var(--barra-alto); /* Evita que se colapse */
     width: 100%;
     background-color: #000;
     display: flex;
-    justify-content: space-between; /* Switch izquierda, Cerrar derecha */
+    justify-content: space-between;
     align-items: center;
-    padding: 0 15px;
+    padding: 0 20px;
     border-bottom: 1px solid var(--accent-color);
-    z-index: 10001;
 }
 
-/* --- CONTENEDOR DEL SWITCH --- */
+.modal-contenido {
+    flex-grow: 1; /* Esto obliga al PDF a ocupar TODO el espacio restante */
+    width: 100%;
+    position: relative;
+    background-color: #000;
+}
+
+#frame-pdf {
+    width: 100%;
+    height: 100%; /* Ahora sí ocupará todo el alto disponible */
+    border: none;
+    display: block;
+}
+
+/* --- CONTROLES (SWITCH Y CERRAR) --- */
 .switch-container {
     display: flex;
     align-items: center;
-    gap: 8px;
-    width: auto; /* Evita estiramientos innecesarios */
+    gap: 10px;
 }
 
-.switch-container i {
-    font-size: 14px;
-    color: #555;
-}
-
-/* --- DISEÑO DEL INTERRUPTOR (SWITCH) --- */
 .switch {
     position: relative;
-    display: inline-block;
-    width: 32px; 
-    height: 16px;
+    width: 34px; height: 18px;
 }
 
 .switch input { opacity: 0; width: 0; height: 0; }
 
 .slider {
     position: absolute;
-    cursor: pointer;
     top: 0; left: 0; right: 0; bottom: 0;
     background-color: #222;
-    transition: .4s;
     border-radius: 20px;
+    cursor: pointer;
+    transition: .4s;
     border: 1px solid #444;
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 10px;
-    width: 10px;
-    left: 2px;
-    bottom: 2px;
+    height: 12px; width: 12px;
+    left: 2px; bottom: 2px;
     background-color: #aaa;
-    transition: .4s;
     border-radius: 50%;
+    transition: .4s;
 }
 
-input:checked + .slider { 
-    background-color: var(--accent-color); 
-    border-color: var(--accent-color); 
-}
+input:checked + .slider { background-color: var(--accent-color); }
+input:checked + .slider:before { transform: translateX(16px); background-color: #fff; }
 
-input:checked + .slider:before { 
-    transform: translateX(16px); 
-    background-color: #fff; 
-}
-
-/* --- BOTÓN CERRAR --- */
 .cerrar-lector {
     color: var(--accent-color);
-    font-family: 'Crimson Text', serif;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-family: 'Nosifer', sans-serif;
+    font-size: 12px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: 0.3s;
+    text-transform: uppercase;
 }
 
-.cerrar-lector:hover {
-    color: #ff0000;
-    transform: scale(1.05);
-}
-
-/* --- LECTOR MODAL Y CONTENIDO --- */
-.modal-lector {
-    display: none; 
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100vw; 
-    height: 100vh;
-    background-color: #000;
-    flex-direction: column; /* Apila barra y PDF */
-}
-
-.modal-contenido {
-    width: 100%;
-    /* Ocupa el espacio restante dinámicamente */
-    flex: 1; 
-    position: relative;
-    overflow: hidden;
-}
-
-#frame-pdf {
-    width: 100%;
-    height: 100%;
-    display: block;
-    border: none;
-    background-color: #fff;
-}
-
-/* --- BLOQUEO DE IMPRESIÓN --- */
-@media print {
-    body { display: none !important; }
-}
-
-/* --- AJUSTES RESPONSIVE (CELULARES) --- */
-@media (max-width: 600px) {
-    :root {
-        --barra-alto: 48px; /* Barra un poco más alta para dedos en móvil */
+/* --- RESPONSIVE MÓVIL (AJUSTES PRECISOS) --- */
+@media (max-width: 768px) {
+    h1 { font-size: 1.8rem; }
+    
+    .barra-superior-lector {
+        padding: 0 10px;
+        height: 50px;
     }
 
-    .barra-superior-lector { 
-        padding: 0 12px; 
-    }
-
-    .cerrar-lector { 
-        font-size: 10px; 
-        padding: 5px; /* Área de toque más fácil */
-    }
-
-    .switch-container i {
-        font-size: 12px; /* Iconos más discretos */
-    }
+    .cerrar-lector { font-size: 10px; }
 }
