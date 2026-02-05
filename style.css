@@ -25,11 +25,11 @@ body {
     min-height: 100vh;
 }
 
-/* Evita el scroll del fondo cuando el lector está abierto */
 body.lector-abierto {
     overflow: hidden;
 }
 
+/* --- HEADER Y BOTÓN YOUTUBE (Sin cambios) --- */
 header {
     text-align: center;
     padding: 80px 20px;
@@ -45,7 +45,6 @@ h1 {
     margin-bottom: 10px;
 }
 
-/* --- BOTÓN DE YOUTUBE --- */
 .btn-youtube {
     display: inline-flex;
     align-items: center;
@@ -120,61 +119,43 @@ a.btn-youtube span.yt-text {
 
 .btn-read:hover { background: var(--accent-color); color: white; }
 
-/* --- LECTOR MODAL A PANTALLA COMPLETA --- */
+/* --- LECTOR MODAL PROFESIONAL --- */
 .modal-lector {
     display: none;
     position: fixed;
     z-index: 9999;
-    left: 0; 
-    top: 0;
-    width: 100vw; 
-    height: 100vh;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
     background-color: #000;
+    flex-direction: column; /* Apila barra superior e iframe */
 }
 
-.modal-contenido {
-    position: relative;
-    width: 100%; 
-    height: 100%;
+/* BARRA SUPERIOR PROPIA (Donde viven tus botones ahora) */
+.barra-superior-lector {
+    height: 45px;
+    width: 100%;
     background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid var(--accent-color);
+    z-index: 10001;
 }
 
-/* ESCUDO PROTECTOR ACTUALIZADO */
-.modal-contenido::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 5;
-    background: transparent;
-    pointer-events: none;
-}
-
-/* --- CONTROLES SUPERIORES --- */
-.controles-lectura {
-    position: absolute;
-    top: 20px; 
-    left: 20px;
-    z-index: 10000;
-}
-
-/* --- DISEÑO DEL SWITCH MODO OSCURO --- */
+/* --- SWITCH MÁS PEQUEÑO Y PULIDO --- */
 .switch-container {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(18, 18, 18, 0.9);
-    padding: 8px 15px;
-    border-radius: 30px;
-    border: 1px solid var(--accent-color);
-    box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+    gap: 10px;
+    font-size: 0.9rem;
 }
 
 .switch {
     position: relative;
     display: inline-block;
-    width: 44px;
-    height: 22px;
+    width: 38px;
+    height: 19px;
 }
 
 .switch input { opacity: 0; width: 0; height: 0; }
@@ -183,42 +164,57 @@ a.btn-youtube span.yt-text {
     position: absolute;
     cursor: pointer;
     top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #333;
+    background-color: #222;
     transition: .4s;
-    border-radius: 34px;
+    border-radius: 20px;
+    border: 1px solid #444;
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 16px; width: 16px;
-    left: 3px; bottom: 3px;
-    background-color: #fff;
+    height: 13px; width: 13px;
+    left: 2px; bottom: 2px;
+    background-color: #ccc;
     transition: .4s;
     border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-input:checked + .slider { background-color: var(--accent-color); }
-input:checked + .slider:before { transform: translateX(22px); }
+input:checked + .slider { background-color: var(--accent-color); border-color: var(--accent-color); }
+input:checked + .slider:before { transform: translateX(19px); background-color: #fff; }
 
-/* --- BOTÓN CERRAR --- */
+/* --- BOTÓN CERRAR DISCRETO --- */
 .cerrar-lector {
-    position: absolute;
-    top: 25px; 
-    right: 25px;
-    color: var(--accent-color);
-    font-family: 'Nosifer', sans-serif;
-    font-size: 14px;
+    color: var(--text-color);
+    font-family: 'Crimson Text', serif;
+    font-size: 13px;
+    font-weight: bold;
     cursor: pointer;
-    z-index: 10000;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
     transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.cerrar-lector:hover {
-    color: #ff0000;
-    transform: scale(1.1);
+.cerrar-lector:hover { color: #ff0000; }
+
+/* --- CONTENIDO DEL PDF --- */
+.modal-contenido {
+    width: 100%;
+    height: calc(100vh - 45px); /* Ocupa el resto de la pantalla */
+    position: relative;
+    background-color: #000;
+}
+
+/* El escudo solo protege el área del iframe, no la barra de tus botones */
+.modal-contenido::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 5;
+    background: transparent;
+    pointer-events: none;
 }
 
 #frame-pdf {
@@ -231,20 +227,17 @@ input:checked + .slider:before { transform: translateX(22px); }
     z-index: 1;
 }
 
-/* Bloqueo de impresión */
-@media print {
-    body { display: none !important; }
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 600px) {
-    .controles-lectura { top: 15px; left: 10px; }
-    .cerrar-lector { top: 22px; right: 15px; font-size: 12px; }
-    .switch-container { padding: 6px 10px; }
-}
+/* --- BLOQUEOS Y ANIMACIONES --- */
+@media print { body { display: none !important; } }
 
 @keyframes pulse-red {
     0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
     70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* Responsive para la barra superior */
+@media (max-width: 600px) {
+    .barra-superior-lector { padding: 0 10px; }
+    .cerrar-lector { font-size: 11px; }
 }
