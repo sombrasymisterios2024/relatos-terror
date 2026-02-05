@@ -20,7 +20,7 @@ body {
     font-family: 'Crimson Text', serif;
 }
 
-/* --- 2. HEADER Y BOTÓN YOUTUBE (ESTILO ORIGINAL) --- */
+/* --- 2. HEADER Y BOTÓN YOUTUBE --- */
 header {
     text-align: center;
     padding: 80px 20px;
@@ -51,7 +51,6 @@ h1 {
     transition: 0.3s;
 }
 
-/* El cuadro rojo interno del botón de YouTube */
 .btn-youtube span {
     background: #FF0000;
     color: #fff;
@@ -60,12 +59,11 @@ h1 {
     margin-left: 5px;
 }
 
-/* --- 3. CONTENEDOR DE HISTORIAS (CUADRÍCULA RESTAURADA) --- */
+/* --- 3. CONTENEDOR DE HISTORIAS --- */
 .container {
     max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
-    /* Esto es lo que evita que las imágenes ocupen todo el ancho */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -88,7 +86,7 @@ h1 {
 
 .story-image {
     width: 100%;
-    height: 250px; /* Tamaño controlado */
+    height: 250px;
     object-fit: cover;
     border-bottom: 2px solid var(--accent-color);
 }
@@ -119,9 +117,9 @@ h1 {
     color: #fff;
 }
 
-/* --- 4. LECTOR PDF (ESTRUCTURA CORREGIDA) --- */
+/* --- 4. LECTOR PDF --- */
 .modal-lector {
-    display: none; /* Se activa como flex en JS */
+    display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -154,7 +152,6 @@ h1 {
     display: block;
 }
 
-/* --- CONTROLES DEL LECTOR --- */
 .switch-container { display: flex; align-items: center; gap: 8px; }
 .switch { position: relative; width: 32px; height: 16px; }
 .switch input { opacity: 0; width: 0; height: 0; }
@@ -177,7 +174,17 @@ input:checked + .slider:before { transform: translateX(16px); background: #fff; 
     text-transform: uppercase;
 }
 
-/* Bloqueo de scroll */
-body.lector-abierto {
-    overflow: hidden;
+body.lector-abierto { overflow: hidden; }
+
+/* --- 5. FOOTER (CENTRADO Y REPARADO) --- */
+footer {
+    text-align: center;
+    padding: 60px 20px;
+    width: 100%;
+    background-color: var(--bg-color);
+    border-top: 1px solid #1a1a1a;
+    margin-top: 50px;
+    color: #555; /* Color grisáceo sutil para el copyright */
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
