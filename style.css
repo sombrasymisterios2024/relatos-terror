@@ -20,7 +20,7 @@ body {
     font-family: 'Crimson Text', serif;
 }
 
-/* --- 2. HEADER Y BOTÓN YOUTUBE (REPARADO) --- */
+/* --- 2. HEADER Y BOTÓN YOUTUBE (ESTILO ORIGINAL) --- */
 header {
     text-align: center;
     padding: 80px 20px;
@@ -32,6 +32,7 @@ h1 {
     color: var(--accent-color);
     font-size: 2.5rem;
     text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
+    margin-bottom: 10px;
 }
 
 .btn-youtube {
@@ -50,21 +51,21 @@ h1 {
     transition: 0.3s;
 }
 
-/* El cuadro rojo interno que mencionaste */
-.btn-youtube span.yt-text {
+/* El cuadro rojo interno del botón de YouTube */
+.btn-youtube span {
     background: #FF0000;
     color: #fff;
-    padding: 4px 10px;
+    padding: 2px 10px;
     border-radius: 4px;
-    margin-left: 8px;
+    margin-left: 5px;
 }
 
-/* --- 3. CONTENEDOR DE HISTORIAS (REPARADO) --- */
-/* Esto evita que la imagen ocupe toda la pantalla */
+/* --- 3. CONTENEDOR DE HISTORIAS (CUADRÍCULA RESTAURADA) --- */
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
+    /* Esto es lo que evita que las imágenes ocupen todo el ancho */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
@@ -77,6 +78,7 @@ h1 {
     flex-direction: column;
     overflow: hidden;
     transition: 0.3s;
+    border-radius: 4px;
 }
 
 .story-card:hover {
@@ -86,13 +88,14 @@ h1 {
 
 .story-image {
     width: 100%;
-    height: 250px; /* Tamaño fijo para que no se desborde */
+    height: 250px; /* Tamaño controlado */
     object-fit: cover;
     border-bottom: 2px solid var(--accent-color);
 }
 
 .card-content {
     padding: 20px;
+    text-align: center;
     flex-grow: 1;
 }
 
@@ -108,6 +111,7 @@ h1 {
     margin: 20px;
     background: transparent;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 .btn-read:hover {
@@ -115,9 +119,9 @@ h1 {
     color: #fff;
 }
 
-/* --- 4. LECTOR (MANTENIENDO LA FUNCIONALIDAD) --- */
+/* --- 4. LECTOR PDF (ESTRUCTURA CORREGIDA) --- */
 .modal-lector {
-    display: none;
+    display: none; /* Se activa como flex en JS */
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -128,6 +132,7 @@ h1 {
 
 .barra-superior-lector {
     height: 45px;
+    min-height: 45px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,9 +141,20 @@ h1 {
     border-bottom: 1px solid var(--accent-color);
 }
 
-.modal-contenido { flex-grow: 1; width: 100%; }
-#frame-pdf { width: 100%; height: 100%; border: none; }
+.modal-contenido {
+    flex-grow: 1;
+    width: 100%;
+    position: relative;
+}
 
+#frame-pdf {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* --- CONTROLES DEL LECTOR --- */
 .switch-container { display: flex; align-items: center; gap: 8px; }
 .switch { position: relative; width: 32px; height: 16px; }
 .switch input { opacity: 0; width: 0; height: 0; }
@@ -153,6 +169,15 @@ h1 {
 input:checked + .slider { background: var(--accent-color); }
 input:checked + .slider:before { transform: translateX(16px); background: #fff; }
 
-.cerrar-lector { color: var(--accent-color); font-family: 'Nosifer', sans-serif; font-size: 11px; cursor: pointer; }
+.cerrar-lector {
+    color: var(--accent-color);
+    font-family: 'Nosifer', sans-serif;
+    font-size: 11px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
 
-body.lector-abierto { overflow: hidden; }
+/* Bloqueo de scroll */
+body.lector-abierto {
+    overflow: hidden;
+}
