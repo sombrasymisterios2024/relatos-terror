@@ -5,8 +5,11 @@
     --text-color: #c9c9c9;
 }
 
+/* Bloqueo visual de selección en toda la web */
 * {
     -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     box-sizing: border-box;
 }
@@ -37,6 +40,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+/* --- BOTÓN DE YOUTUBE --- */
 .btn-youtube {
     display: inline-flex;
     align-items: center;
@@ -68,6 +72,7 @@ a.btn-youtube span.yt-text {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;
 }
 
+/* --- CONTENEDOR DE HISTORIAS --- */
 .container {
     max-width: 1000px;
     width: 95%;
@@ -110,6 +115,7 @@ a.btn-youtube span.yt-text {
 
 .btn-read:hover { background: var(--accent-color); color: white; }
 
+/* --- LECTOR MODAL Y PROTECCIÓN --- */
 .modal-lector {
     display: none;
     position: fixed;
@@ -125,12 +131,27 @@ a.btn-youtube span.yt-text {
     width: 90%; height: 85vh;
     border: 2px solid var(--accent-color);
     background-color: #000;
+    overflow: hidden; /* Evita que el protector se salga */
+}
+
+/* ESCUDO PROTECTOR: Capa invisible que bloquea el clic derecho y selección sobre el PDF */
+.modal-contenido::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0);
+    pointer-events: none; /* Permite el scroll pero bloquea interacción profunda */
 }
 
 .controles-lectura {
     position: absolute;
     top: -55px; left: 0;
     display: flex; gap: 8px;
+    z-index: 20; /* Por encima del escudo */
 }
 
 .btn-modo {
@@ -150,16 +171,24 @@ a.btn-youtube span.yt-text {
     color: var(--accent-color);
     font-family: 'Nosifer', sans-serif;
     cursor: pointer;
+    z-index: 20; /* Por encima del escudo */
 }
 
 #frame-pdf {
     width: 100%;
     height: 100%;
     display: block;
-    /* Mejora el scroll en móviles */
+    border: none;
+    background-color: #fff;
     -webkit-overflow-scrolling: touch;
 }
 
+/* Bloqueo de impresión: Si intentan imprimir, la página saldrá vacía */
+@media print {
+    body { display: none !important; }
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 600px) {
     .modal-contenido { width: 100%; height: 82vh; margin-top: 100px; }
     .controles-lectura { top: -85px; }
