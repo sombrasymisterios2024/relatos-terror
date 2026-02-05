@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Relatos de Ultratumba | Lectura Exclusiva</title>
     
-    <link rel="stylesheet" href="style.css?v=12.0">
+    <link rel="stylesheet" href="style.css?v=13.0">
     
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700&family=Nosifer&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -43,16 +43,16 @@
 
     <div id="lector-pdf" class="modal-lector">
         <div class="modal-contenido">
+            
             <div class="controles-lectura">
-                <button type="button" onclick="cambiarModoLector('claro')" class="btn-modo">
-                    <i class="fas fa-sun"></i> CLARO
-                </button>
-                <button type="button" onclick="cambiarModoLector('oscuro')" class="btn-modo">
-                    <i class="fas fa-moon"></i> OSCURO
-                </button>
-                <button type="button" onclick="pantallaCompleta()" class="btn-modo">
-                    <i class="fas fa-expand-arrows-alt"></i> AMPLIAR
-                </button>
+                <div class="switch-container">
+                    <i class="fas fa-sun" title="Modo Claro"></i>
+                    <label class="switch">
+                        <input type="checkbox" id="modo-toggle" onclick="toggleModo()">
+                        <span class="slider"></span>
+                    </label>
+                    <i class="fas fa-moon" title="Modo Oscuro"></i>
+                </div>
             </div>
 
             <span class="cerrar-lector" onclick="cerrarLector()">
@@ -67,6 +67,6 @@
         <p>&copy; 2026 Misterios de Aiden | Contenido Original Protegido</p>
     </footer>
 
-    <script src="script.js?v=21.0"></script>
+    <script src="script.js?v=22.0"></script>
 </body>
 </html>
