@@ -1,4 +1,4 @@
-/* --- VARIABLES DE COLOR --- */
+/* --- 1. VARIABLES Y BASE --- */
 :root {
     --bg-color: #050505;
     --card-bg: #121212;
@@ -6,14 +6,11 @@
     --text-color: #c9c9c9;
 }
 
-/* --- RESET GLOBAL --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
@@ -21,22 +18,13 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Crimson Text', serif;
-    /* Eliminamos cualquier centrado flex aquí para no romper el inicio */
-    line-height: 1.6;
 }
 
-/* Bloqueo de scroll cuando el lector está activo */
-body.lector-abierto {
-    overflow: hidden;
-}
-
-/* --- PÁGINA DE INICIO: HEADER --- */
+/* --- 2. HEADER Y BOTÓN YOUTUBE (REPARADO) --- */
 header {
     text-align: center;
     padding: 80px 20px;
     border-bottom: 2px solid var(--accent-color);
-    background-color: var(--bg-color);
-    width: 100%;
 }
 
 h1 {
@@ -44,10 +32,8 @@ h1 {
     color: var(--accent-color);
     font-size: 2.5rem;
     text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
-    margin-bottom: 10px;
 }
 
-/* --- BOTÓN YOUTUBE --- */
 .btn-youtube {
     display: inline-flex;
     align-items: center;
@@ -64,110 +50,109 @@ h1 {
     transition: 0.3s;
 }
 
-.btn-youtube:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+/* El cuadro rojo interno que mencionaste */
+.btn-youtube span.yt-text {
+    background: #FF0000;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-left: 8px;
 }
 
-/* --- LECTOR PDF (MODAL AISLADO) --- */
+/* --- 3. CONTENEDOR DE HISTORIAS (REPARADO) --- */
+/* Esto evita que la imagen ocupe toda la pantalla */
+.container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.story-card {
+    background: var(--card-bg);
+    border: 1px solid #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.story-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+}
+
+.story-image {
+    width: 100%;
+    height: 250px; /* Tamaño fijo para que no se desborde */
+    object-fit: cover;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.btn-read {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 20px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn-read:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+/* --- 4. LECTOR (MANTENIENDO LA FUNCIONALIDAD) --- */
 .modal-lector {
-    display: none; /* Se activa como 'flex' mediante JS */
+    display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    z-index: 999999;
-    flex-direction: column; /* Apila barra arriba y contenido abajo */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    z-index: 10000;
+    flex-direction: column;
 }
 
-/* BARRA SUPERIOR PROPIA */
 .barra-superior-lector {
     height: 45px;
-    min-height: 45px;
-    width: 100%;
-    background: #000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
+    background: #000;
     border-bottom: 1px solid var(--accent-color);
 }
 
-/* CONTENEDOR DEL IFRAME */
-.modal-contenido {
-    flex-grow: 1; /* Esto obliga al PDF a ocupar todo el resto de la pantalla */
-    width: 100%;
-    position: relative;
-    background-color: #000;
-}
+.modal-contenido { flex-grow: 1; width: 100%; }
+#frame-pdf { width: 100%; height: 100%; border: none; }
 
-#frame-pdf {
-    width: 100%;
-    height: 100%;
-    border: none;
-    display: block;
-}
-
-/* --- BOTONES DEL LECTOR (PULIDOS Y PEQUEÑOS) --- */
-.switch-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 32px; /* Más pequeño */
-    height: 16px;
-}
-
+.switch-container { display: flex; align-items: center; gap: 8px; }
+.switch { position: relative; width: 32px; height: 16px; }
 .switch input { opacity: 0; width: 0; height: 0; }
-
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #222;
-    transition: .4s;
-    border-radius: 20px;
-    border: 1px solid #444;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: #222; border-radius: 20px; cursor: pointer; border: 1px solid #444;
 }
-
 .slider:before {
-    position: absolute;
-    content: "";
-    height: 10px;
-    width: 10px;
-    left: 3px;
-    bottom: 2px;
-    background-color: #aaa;
-    transition: .4s;
-    border-radius: 50%;
+    position: absolute; content: ""; height: 10px; width: 10px;
+    left: 2px; bottom: 2px; background: #aaa; border-radius: 50%; transition: .4s;
 }
+input:checked + .slider { background: var(--accent-color); }
+input:checked + .slider:before { transform: translateX(16px); background: #fff; }
 
-input:checked + .slider { background-color: var(--accent-color); }
-input:checked + .slider:before { transform: translateX(16px); background-color: #fff; }
+.cerrar-lector { color: var(--accent-color); font-family: 'Nosifer', sans-serif; font-size: 11px; cursor: pointer; }
 
-.cerrar-lector {
-    color: var(--accent-color);
-    font-family: 'Nosifer', sans-serif;
-    font-size: 11px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
-
-.cerrar-lector:hover {
-    color: #ff0000;
-    transform: scale(1.1);
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 600px) {
-    h1 { font-size: 1.8rem; }
-    header { padding: 40px 15px; }
-    .barra-superior-lector { padding: 0 10px; }
-}
+body.lector-abierto { overflow: hidden; }
