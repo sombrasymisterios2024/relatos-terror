@@ -1,16 +1,15 @@
+JavaScript
 // --- PROTECCIÓN DE CONTENIDO ---
 document.addEventListener('contextmenu', event => event.preventDefault());
 
 document.onkeydown = function(e) {
-    // Bloquea F12, Ctrl+U, Ctrl+C, Ctrl+P, Ctrl+S
+    // Bloquea F12, Ctrl+U, Ctrl+C, Ctrl+P, Ctrl+S, Ctrl+A (seleccionar todo)
     if(e.keyCode == 123 || 
-      (e.ctrlKey && [85, 67, 80, 83].includes(e.keyCode))) {
-        alert("Contenido protegido por derechos de autor.");
+      (e.ctrlKey && [85, 67, 80, 83, 65].includes(e.keyCode))) {
+        alert("Contenido protegido.");
         return false;
     }
 };
-
-// --- FUNCIONES DEL LECTOR PDF ---
 
 function abrirLector(nombreArchivo) {
     const lector = document.getElementById('lector-pdf');
@@ -18,13 +17,10 @@ function abrirLector(nombreArchivo) {
     
     const usuario = "sombrasymisterios2024"; 
     const repositorio = "relatos-terror";
-
     const urlArchivo = `https://${usuario}.github.io/${repositorio}/pdfs/${nombreArchivo}`;
     
-    // USAMOS EL VISOR DE MOZILLA CON PARÁMETROS PARA OCULTAR BOTONES
-    // #toolbar=0 oculta la barra de herramientas principal
-    // &navpanes=0 oculta el panel de navegación
-    const visorPDF = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(urlArchivo)}#toolbar=0&navpanes=0`;
+    // #toolbar=0 oculta la barra superior donde están los botones de descarga e impresión
+    const visorPDF = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(urlArchivo)}#toolbar=0`;
     
     iframe.src = visorPDF;
     lector.style.display = 'block';
