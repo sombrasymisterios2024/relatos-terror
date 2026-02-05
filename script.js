@@ -13,17 +13,14 @@ function abrirLector(nombreArchivo) {
     const lector = document.getElementById('lector-pdf');
     const iframe = document.getElementById('frame-pdf');
     
-    // 1. Datos reales (Asegúrate de que sean exactos)
+    // Tus datos exactos según la imagen
     const usuario = "sombrasymisterios2024"; 
     const repositorio = "relatos-terror";
 
-    // 2. Usaremos la URL de GitHub Pages directamente
-    // Esta URL es la que GitHub permite leer sin bloqueos
+    // Construimos la URL apuntando a la carpeta /pdfs/
     const urlArchivo = `https://${usuario}.github.io/${repositorio}/pdfs/${nombreArchivo}`;
     
-    // 3. CAMBIO CLAVE: En lugar de usar el visor de Mozilla, 
-    // pasamos el archivo directo al iframe. 
-    // Chrome y Brave en móvil abrirán su propio lector con zoom.
+    // Cargamos directo al iframe para evitar el bloqueo de Mozilla/Google
     iframe.src = urlArchivo;
     
     lector.style.display = 'block';
