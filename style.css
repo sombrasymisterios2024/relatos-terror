@@ -18,19 +18,20 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: 'Crimson Text', serif;
+    line-height: 1.6;
 }
 
 /* --- 2. HEADER Y BOTÓN YOUTUBE --- */
 header {
     text-align: center;
-    padding: 80px 20px;
+    padding: 60px 20px;
     border-bottom: 2px solid var(--accent-color);
 }
 
 h1 {
     font-family: 'Nosifer', sans-serif;
     color: var(--accent-color);
-    font-size: 2.5rem;
+    font-size: clamp(1.5rem, 8vw, 2.5rem); /* Tamaño fluido según pantalla */
     text-shadow: 0 0 15px rgba(139, 0, 0, 0.5);
     margin-bottom: 10px;
 }
@@ -49,8 +50,7 @@ h1 {
     border-radius: 8px;
     border: 2px solid #FF0000;
     transition: 0.3s;
-    /* ESTA ES LA LÍNEA QUE FALTA */
-    animation: latido 2s infinite;
+    animation: latido 2s infinite; /* Efecto de latido activado */
 }
 
 .btn-youtube span {
@@ -61,13 +61,14 @@ h1 {
     margin-left: 5px;
 }
 
-/* --- 3. CONTENEDOR DE HISTORIAS --- */
+/* --- 3. CONTENEDOR DE HISTORIAS (RESPONSIVO) --- */
 .container {
     max-width: 1200px;
     margin: 50px auto;
     padding: 0 20px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* 3 columnas en PC, se ajusta automáticamente en móvil */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
 }
 
@@ -79,6 +80,7 @@ h1 {
     overflow: hidden;
     transition: 0.3s;
     border-radius: 4px;
+    height: 100%;
 }
 
 .story-card:hover {
@@ -89,7 +91,7 @@ h1 {
 .story-image {
     width: 100%;
     height: 250px;
-    object-fit: cover;
+    object-fit: cover; /* Mantiene la proporción sin deformar */
     border-bottom: 2px solid var(--accent-color);
 }
 
@@ -97,6 +99,9 @@ h1 {
     padding: 20px;
     text-align: center;
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .btn-read {
@@ -108,7 +113,8 @@ h1 {
     text-decoration: none;
     text-transform: uppercase;
     font-weight: bold;
-    margin: 20px;
+    margin: 20px auto 10px;
+    width: 80%;
     background: transparent;
     cursor: pointer;
     transition: 0.3s;
@@ -119,7 +125,7 @@ h1 {
     color: #fff;
 }
 
-/* --- 4. LECTOR PDF --- */
+/* --- 4. LECTOR PDF (ADAPTADO A MÓVIL) --- */
 .modal-lector {
     display: none;
     position: fixed;
@@ -136,7 +142,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 15px;
     background: #000;
     border-bottom: 1px solid var(--accent-color);
 }
@@ -145,6 +151,7 @@ h1 {
     flex-grow: 1;
     width: 100%;
     position: relative;
+    overflow: hidden;
 }
 
 #frame-pdf {
@@ -154,6 +161,7 @@ h1 {
     display: block;
 }
 
+/* Switch */
 .switch-container { display: flex; align-items: center; gap: 8px; }
 .switch { position: relative; width: 32px; height: 16px; }
 .switch input { opacity: 0; width: 0; height: 0; }
@@ -171,14 +179,15 @@ input:checked + .slider:before { transform: translateX(16px); background: #fff; 
 .cerrar-lector {
     color: var(--accent-color);
     font-family: 'Nosifer', sans-serif;
-    font-size: 11px;
+    font-size: 10px;
     cursor: pointer;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 body.lector-abierto { overflow: hidden; }
 
-/* --- 5. FOOTER (CENTRADO Y REPARADO) --- */
+/* --- 5. FOOTER --- */
 footer {
     text-align: center;
     padding: 60px 20px;
@@ -186,23 +195,26 @@ footer {
     background-color: var(--bg-color);
     border-top: 1px solid #1a1a1a;
     margin-top: 50px;
-    color: #555; /* Color grisáceo sutil para el copyright */
-    font-size: 0.9rem;
+    color: #555;
+    font-size: 0.85rem;
     letter-spacing: 1px;
 }
 
-/* EFECTO DE LATIDO */
+/* --- 6. ANIMACIONES Y MEDIA QUERIES --- */
 @keyframes latido {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.4); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+    header { padding: 40px 15px; }
+    .container { 
+        grid-template-columns: 1fr; /* Una sola tarjeta por fila en móvil */
+        gap: 20px; 
     }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 0 20px 5px rgba(255, 0, 0, 0.4);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-    }
+    .story-image { height: 200px; }
+    .barra-superior-lector { padding: 0 10px; }
+    .btn-read { width: 90%; }
 }
